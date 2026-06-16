@@ -1,4 +1,4 @@
-import PropertyNavbar from "../components/PropertyPage/PropertyNavbar";
+import PropertyNavbar from "../components/PropertyPage/PropertyNavBar";
 
 function PropertyPage() {
     return (

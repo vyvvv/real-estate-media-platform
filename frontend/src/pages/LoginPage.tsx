@@ -1,33 +1,5 @@
-// function LoginPage() {
-//   return (
-//     <div>
-//       <h1>Login Page</h1>
-//       <p>
-//         Don't have an account? <a href="/register">Sign up here</a>.
-//       </p>
-
 import LoginNavBar from "../components/LoginNavBar";
 
-//       <form>
-//         <label htmlFor="email">Email:</label>
-//         <input type="email" id="email" name="email" required />
-
-//         <label htmlFor="password">Password:</label>
-//         <input type="password" id="password" name="password" required />
-//         <button type="submit">Login</button>
-
-//         <label htmlFor="remember-me">Remember me</label>
-//         <input type="checkbox" id="remember-me" name="remember-me" />
-
-//         <p>
-//           <a href="/forgot-password">Forgot your password?</a>
-//         </p>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default LoginPage;
 
 function LoginPage() {
   return (

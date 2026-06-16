@@ -10,10 +10,30 @@ function LoginNavBar() {
             <li>
               {" "}
               <a
-                href="#"
-                className="text-white text-sm font-semibold hover:text-blue-200"
+                href="/dashboard"
+                className="text-white text-sm font-semibold hover:text-blue-200 px-6"
               >
                 Listing Cases
+              </a>
+            </li>
+
+             <li>
+              {" "}
+              <a
+                href="/agent"
+                className="text-white text-sm font-semibold hover:text-blue-200 px-6"
+              >
+                Agents
+              </a>
+            </li>
+
+             <li>
+              {" "}
+              <a
+                href="/photography-companies"
+                className="text-white text-sm font-semibold hover:text-blue-200 px-6"
+              >
+                Photography Companies
               </a>
             </li>
           </ul>
