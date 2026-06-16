@@ -1,7 +1,7 @@
 import LoginNavBar from "../components/LoginNavBar";
 import SearchBar from "../components/SearchBar";
 
-function DashboardPage() {
+function AdminDashboardPage() {
   return (
     <div>
       <LoginNavBar />
@@ -28,4 +28,4 @@ function DashboardPage() {
 }
      
 
-export default DashboardPage;
+export default AdminDashboardPage;

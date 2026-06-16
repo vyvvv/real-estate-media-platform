@@ -15,7 +15,7 @@ function AgentPage() {
         </div>
 
        <div className="mt-12 w-full">
-        <SearchBar  showCreateButton={true}  placeholder="Search for agents..." createButtonLabel="+ Create Agent" />
+        <SearchBar  showCreateButton={true}  placeholder="Search from your agents..." createButtonLabel="+ Create Agent" />
          </div>
 
 

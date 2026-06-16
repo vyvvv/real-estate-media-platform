@@ -14,7 +14,7 @@ function PhotographyCompaniesPage() {
         </div>
         
 
-       <div className="mt-12 w-full">
+       <div className="mt-12 w-112">
         <SearchBar showCreateButton={false} placeholder="Search from your photography companies..." />
          </div>
         

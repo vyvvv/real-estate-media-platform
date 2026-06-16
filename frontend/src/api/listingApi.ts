@@ -1,4 +1,4 @@
-import type { ListingCase } from "../types/listing";
+import type { ListingCase } from "../types/ListingCase";
 
 const API_BASE_URL = "http://localhost:5166";
 

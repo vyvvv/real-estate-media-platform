@@ -1,7 +1,7 @@
 function LoginNavBar() {
   return (
     <nav className="w-full shadow-sm bg-sky-600">
-      <div className="max-auto flex h-16 items-center justify-between px-10">
+      <div className="mx-auto flex h-16 items-center justify-between px-10">
         <div className="flex item-center gap-16">
           <a href="#" className="text-xl font-bold tracking-tight text-white">
             Real Estate System
