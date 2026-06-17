@@ -8,6 +8,7 @@ import PhotographyCompaniesPage from "./pages/PhotographyCompaniesPage";
 import PropertyPage from "./pages/PropertyPage";
 import AgentDashBoardPage from "./pages/AgentDashBoardPage";
 import SignUpPage from "./pages/SignUpPage";
+import PropertyDetailPage from "./pages/PropertyDetailPage";
 
 
 function App() {
@@ -26,6 +27,8 @@ function App() {
         <Route path="/property/:id" element={<PropertyPage />} /> 
          <Route path="/agentdashboard" element={<AgentDashBoardPage />} />
           <Route path="/signup" element={<SignUpPage />} />
+            <Route path="/propertydetail" element={<PropertyDetailPage />} />
+
       </Routes>
     </BrowserRouter>
       
