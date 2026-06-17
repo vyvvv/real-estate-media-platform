@@ -1,5 +1,6 @@
 import SearchBar from "../components/SearchBar";
 import TabFilter from "../components/TabFilter";
+import PropertyCard from "../components/PropertyCard";
 
 function AgentDashBoardPage() {
   return (
@@ -24,11 +25,13 @@ function AgentDashBoardPage() {
       </div>
 
       
-      <main className="flex gap-4 p-4">
+      <main className="flex gap-60 p-4  ">
         <div className="w-48 shrink-0 ml-30 ">
           <TabFilter />
         </div>
-        <div className="flex-1"></div>
+        <div className="flex-1 max-w-7xl w-full">
+          <PropertyCard/>
+        </div>
       </main>
     </div>
   );
