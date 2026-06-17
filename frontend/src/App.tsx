@@ -7,6 +7,7 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import PhotographyCompaniesPage from "./pages/PhotographyCompaniesPage";
 import PropertyPage from "./pages/PropertyPage";
 import AgentDashBoardPage from "./pages/AgentDashBoardPage";
+import SignUpPage from "./pages/SignUpPage";
 
 
 function App() {
@@ -18,11 +19,13 @@ function App() {
         <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<AdminDashboardPage />} />
         <Route path="/agent" element={<AgentPage />} />
         <Route path="/photography-companies" element={<PhotographyCompaniesPage />} />
         <Route path="/property/:id" element={<PropertyPage />} /> 
          <Route path="/agentdashboard" element={<AgentDashBoardPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
       
