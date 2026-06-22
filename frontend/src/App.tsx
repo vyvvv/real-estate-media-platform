@@ -25,9 +25,9 @@ function App() {
         <Route path="/agent" element={<AgentPage />} />
         <Route path="/photography-companies" element={<PhotographyCompaniesPage />} />
         <Route path="/property/:id" element={<PropertyPage />} /> 
-         <Route path="/agentdashboard" element={<AgentDashBoardPage />} />
-          <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/propertydetail" element={<PropertyDetailPage />} />
+        <Route path="/agentdashboard" element={<AgentDashBoardPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/propertydetail" element={<PropertyDetailPage />} />
 
       </Routes>
     </BrowserRouter>

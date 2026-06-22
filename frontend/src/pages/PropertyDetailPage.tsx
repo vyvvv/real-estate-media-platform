@@ -1,7 +1,8 @@
+//import type React from "react";
 import houseImg from "../assets/house.jpg";
 <img src={houseImg} className="w-full h-full object-cover" />;
 
-const PropertyDetailPage = () => {
+const PropertyDetailPage:React.FC = () => {
   return (
     <>
       <div className="flex h-[400px]">

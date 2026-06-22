@@ -3,6 +3,8 @@ import TabFilter from "../components/TabFilter";
 import PropertyCard from "../components/PropertyCard";
 
 function AgentDashBoardPage() {
+
+
   return (
     <div className="w-full shadow-sm ">
       <div className="mx-auto flex-col h-[100px] items-center px-20 border-b-2 border-gray-300">

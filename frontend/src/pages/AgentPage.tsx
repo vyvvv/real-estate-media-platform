@@ -1,8 +1,12 @@
+import { useState } from "react";
 import LoginNavBar from "../components/LoginNavBar";
 import SearchBar from "../components/SearchBar";
+import Modal from "../components/Modal";
+import AgentForm from "../components/AgentForm";
 
 function AgentPage() {
 
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div>
@@ -15,7 +19,20 @@ function AgentPage() {
         </div>
 
        <div className="mt-12 w-full">
-        <SearchBar  showCreateButton={true}  placeholder="Search from your agents..." createButtonLabel="+ Create Agent" />
+        <SearchBar  showCreateButton={true}  placeholder="Search from your agents..." createButtonLabel="+ Create Agent"   onCreateClick={() => setIsOpen(true)} />
+          <Modal
+            title="Agent Details"
+            subtitle="Please review and complete agent details."
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)} // 关闭 Modal
+            onSave={() => {
+              // 后续接入 API 时在这里处理
+              setIsOpen(false);
+            }}
+          >
+          <AgentForm />
+          </Modal>
+
          </div>
 
 

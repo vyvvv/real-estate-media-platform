@@ -1,14 +1,16 @@
 function SearchBar({
   showCreateButton = true,
   placeholder = "Search from listing case...",
-   createButtonLabel = "+ Create Property",
-    inputClassName = "py-2"
+  createButtonLabel = "+ Create Property",
+  inputClassName = "py-2",
+  onCreateClick
   
 }: {
   showCreateButton?: boolean;
   placeholder?: string;
   createButtonLabel?: string;
   inputClassName?: string;
+  onCreateClick?: () => void;
 
 }) {
   return (
@@ -30,7 +32,7 @@ function SearchBar({
         </div>
          {showCreateButton && (
         <div className="flex-1 flex justify-center">
-             <button className="rounded-md px-4 py-2 text-sm font-medium text-white bg-sky-600 hover:bg-blue-700 whitespace-nowrap">
+             <button className="rounded-md px-4 py-2 text-sm font-medium text-white bg-sky-600 hover:bg-blue-700 whitespace-nowrap" onClick={onCreateClick}>
                 {createButtonLabel}
              </button>
          

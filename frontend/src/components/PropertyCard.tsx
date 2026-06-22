@@ -55,7 +55,7 @@ const PropertyCard = () => {
 
       {/* 查看详情 */}
       <div className="flex justify-end mt-3">
-        <a href="#" className="text-xs text-gray-400 hover:text-gray-600">
+        <a href="/propertydetail" className="text-xs text-gray-400 hover:text-gray-600">
           View order details →
         </a>
       </div>
