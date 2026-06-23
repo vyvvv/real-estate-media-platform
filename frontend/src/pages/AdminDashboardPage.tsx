@@ -3,6 +3,8 @@ import LoginNavBar from "../components/LoginNavBar";
 import SearchBar from "../components/SearchBar";
 import PropertyForm from "../components/PropertyForm";
 import Modal from "../components/Modal";
+import PropertyTable from "../components/PropertyTable";
+import { mockProperties } from "../data/mockProperty";
 
 const AdminDashboardPage: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,6 +41,9 @@ const AdminDashboardPage: React.FC = () => {
           </Modal>
 
         </div>
+        <div className="mt-6 w-full">
+          <PropertyTable properties={mockProperties}/></div>
+
       </main>
     </div>
   );

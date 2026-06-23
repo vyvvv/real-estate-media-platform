@@ -3,6 +3,9 @@ import LoginNavBar from "../components/LoginNavBar";
 import SearchBar from "../components/SearchBar";
 import Modal from "../components/Modal";
 import AgentForm from "../components/AgentForm";
+import AgentTable from "../components/AgentTable";
+import { mockAgent } from "../data/mockAgent";
+
 
 function AgentPage() {
 
@@ -34,6 +37,9 @@ function AgentPage() {
           </Modal>
 
          </div>
+
+          <div className="mt-6 w-full">
+          <AgentTable agents={mockAgent}/></div>
 
 
       </main>

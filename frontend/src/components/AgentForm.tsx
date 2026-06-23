@@ -7,7 +7,7 @@ const [lastName, setLastName] = useState("");
 const [phone, setPhone] = useState("");
 const [email, setEmail] = useState("");
 const [companyName, setCompanyName] = useState("");
-const [profileURL, setProfileURL] = useState<File | null>(null);
+const [, setProfileURL] = useState<File | null>(null);
 const [preview,SetPreview] = useState("");
 
 const handleProfileURL = (e: React.ChangeEvent<HTMLInputElement>) =>{
