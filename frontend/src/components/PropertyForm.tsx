@@ -1,12 +1,39 @@
 import { useState } from "react";
+import {type PropertyFormProps} from "../types/Property"
 
-const PropertyForm = () => {
-  const [status, setStatus] = useState("For Sale");
-  const [propertyType, setPropertyType] = useState("");
-  const [bed, setBed] = useState(0);
-  const [bath, setBath] = useState(0);
-  const [car, setCar] = useState(0);
-  const [area, setArea] = useState(0);
+
+const PropertyForm = ({initialData}:PropertyFormProps) => {
+  const statusMap: Record<number, string> = {
+  1: "For Sale",
+  2: "For Rent",
+  3: "Auction",
+};
+const typeMap: Record<number, string> = {
+  1: "House",
+  2: "Town House",
+  3: "Villa",
+  4: "Apartment / Unit",
+  5: "Others",
+};
+
+  
+  const [status, setStatus] = useState(statusMap[initialData.listingCaseStatus] ?? "For Sale");
+  const [propertyType, setPropertyType] = useState(typeMap[initialData?.propertyType]?? "");
+  const [bed, setBed] = useState(initialData?.bedrooms ?? 0);
+  const [bath, setBath] = useState(initialData?.bathrooms ?? 0);
+  const [car, setCar] = useState(initialData?.garages ?? 0);
+  const [area, setArea] = useState(initialData?.floorArea ?? 0);
+
+  const [title, setTitle] = useState(initialData?.title ?? "");
+const [street, setStreet] = useState(initialData?.street ?? "");
+const [city, setCity] = useState(initialData?.city ?? "");
+const [state, setState] = useState(initialData?.state ?? "");
+const [postcode, setPostcode] = useState(initialData?.postcode ?? "");
+const [price, setPrice] = useState(initialData?.price ?? 0);
+
+
+
+    
 
   return (
     <div className="space-y-4">
@@ -16,6 +43,7 @@ const PropertyForm = () => {
         </label>
         <input
           type="text"
+          value={title} onChange={(e) => setTitle(e.target.value)}
           className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         />
       </div>
@@ -68,6 +96,7 @@ const PropertyForm = () => {
         </label>
         <input
           type="text"
+          value={street} onChange={(e) => setStreet(e.target.value)}
           placeholder="Search..."
           autoComplete="street-address"
           className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
@@ -81,6 +110,7 @@ const PropertyForm = () => {
           </label>
           <input
             type="text"
+            value={city} onChange={(e) => setCity(e.target.value)}
             autoComplete="address-level2"
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           />
@@ -91,7 +121,8 @@ const PropertyForm = () => {
           </label>
           <input
             type="text"
-             autoComplete="address-level1"
+            value={state} onChange={(e) => setState(e.target.value)}
+            autoComplete="address-level1"
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           />
         </div>
@@ -104,7 +135,8 @@ const PropertyForm = () => {
           </label>
           <input
             type="text"
-             autoComplete="postal-code"
+            autoComplete="postal-code"
+            value={postcode} onChange={(e) => setPostcode(Number(e.target.value))}
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           />
         </div>
@@ -114,6 +146,7 @@ const PropertyForm = () => {
           </label>
           <input
             type="number"
+            value={price} onChange={(e) => setPrice(Number(e.target.value))} 
             className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           />
         </div>

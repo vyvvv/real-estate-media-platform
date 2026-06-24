@@ -22,3 +22,8 @@ export type Property ={
     userId:string | null;
 
 }
+
+
+export interface PropertyFormProps {
+  initialData?: Property | null;
+}

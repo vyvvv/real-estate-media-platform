@@ -1,14 +1,23 @@
 import { useState } from "react";
+import {type AgentFormProps} from "../types/Agent"
 
-const AgentForm = () => {
+const AgentForm = ({initialData = null}: AgentFormProps) => {
 
-const [firstName, setFirstName] = useState("");
-const [lastName, setLastName] = useState("");
-const [phone, setPhone] = useState("");
-const [email, setEmail] = useState("");
-const [companyName, setCompanyName] = useState("");
-const [, setProfileURL] = useState<File | null>(null);
-const [preview,SetPreview] = useState("");
+  const [firstName, setFirstName] = useState(initialData?.firstName ?? "");
+  const [lastName, setLastName] = useState(initialData?.lastName ?? "");
+  const [phone, setPhone] = useState(initialData?.phoneNumber ?? "");  
+  const [email, setEmail] = useState(initialData?.email ?? "");
+  const [companyName, setCompanyName] = useState(initialData?.companyName ?? "");
+  const [preview, setPreview] = useState(initialData?.profileUrl ?? ""); 
+
+
+// const [firstName, setFirstName] = useState("");
+// const [lastName, setLastName] = useState("");
+// const [phone, setPhone] = useState("");
+// const [email, setEmail] = useState("");
+// const [companyName, setCompanyName] = useState("");
+ const [, setProfileURL] = useState<File | null>(null);
+// const [preview,SetPreview] = useState("");
 
 const handleProfileURL = (e: React.ChangeEvent<HTMLInputElement>) =>{
     
@@ -16,7 +25,7 @@ const handleProfileURL = (e: React.ChangeEvent<HTMLInputElement>) =>{
     if (!file) return;
 
     setProfileURL(file);
-    SetPreview(URL.createObjectURL(file))
+    setPreview(URL.createObjectURL(file))
 }
   return (
     <div className="space-y-4">

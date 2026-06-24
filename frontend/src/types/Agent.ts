@@ -9,3 +9,7 @@ export type Agent = {
     listingCaseId:number;
 
 }
+
+export interface AgentFormProps {
+  initialData?: Agent | null;
+}

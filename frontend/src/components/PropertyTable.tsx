@@ -1,4 +1,7 @@
 import { type Property } from "../types/Property";
+import { useState } from "react";
+import Modal from "./Modal";
+import PropertyForm from "./PropertyForm";
 
 type PropertyTableProps = {
   properties: Property[];
@@ -18,7 +21,16 @@ const typeMap: Record<number, string> = {
 };
 
 const PropertyTable = ({ properties }: PropertyTableProps) => {
+
+  const [editingProperty, setEditingProperty] = useState<Property | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const handleClose = () => {
+    setIsOpen(false);
+    setEditingProperty(null); // 关闭时清空
+  };
+
   return (
+    <>
     <table className="w-full text-sm border-collapse">
       <thead>
         <tr className="border-b border-gray-200 text-left text-xs text-gray-500 uppercase tracking-wider">
@@ -52,7 +64,10 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
               </span>
             </td>
             <td className="py-3 px-4">
-              <button className="text-sky-600 hover:text-sky-800 text-xs mr-2">
+              <button className="text-sky-600 hover:text-sky-800 text-xs mr-2"  
+              onClick={() => {
+                    setEditingProperty(property); // 保存当前 agent
+                    setIsOpen(true);  }}>
                 Edit
               </button>
               <button className="text-red-500 hover:text-red-700 text-xs">
@@ -63,6 +78,22 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
         ))}
       </tbody>
     </table>
+
+    <Modal
+         title="Property Details"
+          subtitle="Please take a moment to review and complete property details."
+          isOpen={isOpen}
+           onClose={() => setIsOpen(false)} 
+        onSave={() => {
+          // 后续接入 API 时在这里处理
+          handleClose();
+        }}
+      >
+        <PropertyForm initialData={editingProperty} />
+      </Modal>
+      </>
+    
+    
   );
 };
 
