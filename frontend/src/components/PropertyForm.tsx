@@ -37,7 +37,7 @@ const PropertyForm = ({ initialData }: PropertyFormProps) => {
   const [price, setPrice] = useState(initialData?.price ?? 0);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 ">
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Property Title

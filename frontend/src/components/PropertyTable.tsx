@@ -2,10 +2,12 @@ import { type Property } from "../types/Property";
 import { useState } from "react";
 import Modal from "./Modal";
 import PropertyForm from "./PropertyForm";
+import { useNavigate } from "react-router-dom";
 
 type PropertyTableProps = {
   properties: Property[];
 };
+
 
 const statusMap: Record<number, string> = {
   1: "For Sale",
@@ -22,6 +24,7 @@ const typeMap: Record<number, string> = {
 
 const PropertyTable = ({ properties }: PropertyTableProps) => {
 
+  const navigate = useNavigate();
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const handleClose = () => {
@@ -65,9 +68,9 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
             </td>
             <td className="py-3 px-4">
               <button className="text-sky-600 hover:text-sky-800 text-xs mr-2"  
-              onClick={() => {
-                    setEditingProperty(property); // 保存当前 agent
-                    setIsOpen(true);  }}>
+              onClick={() => { navigate(`/property/${property.id}`, {state:{property}})}}>
+                    {/* // setEditingProperty(property); // 保存当前 agent
+                    // setIsOpen(true);   */}
                 Edit
               </button>
               <button className="text-red-500 hover:text-red-700 text-xs">
