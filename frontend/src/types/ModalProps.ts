@@ -4,7 +4,8 @@ export type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSave: () => void;
-  title: string;
-  subtitle: string;
+  title: string ;
+  subtitle?: string;
   children: ReactNode;
+  saveLabel?: string;
 };

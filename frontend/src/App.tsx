@@ -9,6 +9,7 @@ import AgentDashBoardPage from "./pages/AgentDashBoardPage";
 import SignUpPage from "./pages/SignUpPage";
 import PropertyDetailPage from "./pages/PropertyDetailPage";
 import PropertyDashboard from "./pages/PropertyDashboard"
+import EditPhotographyPage from "./pages/EditPhotographyPage";
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/propertydetail" element={<PropertyDetailPage />} />
         
         <Route path="/property/:id" element={<PropertyDashboard />} />
+        <Route path="/property/:id/photography" element={<EditPhotographyPage />} />
 
       </Routes>
     </BrowserRouter>

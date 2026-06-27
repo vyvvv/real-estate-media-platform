@@ -27,6 +27,7 @@ function AgentPage() {
             title="Agent Details"
             subtitle="Please review and complete agent details."
             isOpen={isOpen}
+              saveLabel=""
             onClose={() => setIsOpen(false)} // 关闭 Modal
             onSave={() => {
               // 后续接入 API 时在这里处理

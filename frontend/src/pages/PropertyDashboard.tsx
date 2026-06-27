@@ -1,25 +1,28 @@
 // pages/PropertyDashboard.tsx
-//import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Camera, LayoutTemplate, Video, User, Home } from "lucide-react";
 import DashboardCard from "../components/DashboardCard";
 import LoginNavBar from "../components/LoginNavBar";
 import Modal from "../components/Modal";
 import PropertyForm from "../components/PropertyForm";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import PhotographyModal from "../components/PhotographyModal";
 
 
 
 
 const PropertyDashboard = () => {
- // const { id } = useParams();
+ const { id } = useParams();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isPhotographyOpen, setPhotographyOpen] = useState(false);
   const location = useLocation();
   const property = location.state?.property;
+  const navigate = useNavigate()
 
   const cards = [
-  { label: "Photography", icon: <Camera size={50} /> },
+  { label: "Photography", icon: <Camera size={50} />, onClick:()=> navigate(`/property/${id}/photography`) },
   { label: "Floor Plan", icon: <LayoutTemplate size={50} /> },
   { label: "Videography", icon: <Video size={50} /> },
   { label: "Agents", icon: <User size={50} /> },
@@ -67,6 +70,19 @@ return (
     >
       <PropertyForm initialData={property} />
     </Modal>
+
+
+     <Modal
+      title="Upload Photography"
+      subtitle=""
+      isOpen={isPhotographyOpen}
+      onClose={() => setPhotographyOpen(false)}
+      onSave={() => setPhotographyOpen(false)}
+    >
+      <PhotographyModal  />
+    </Modal>
+
+
   </>
 );
 };

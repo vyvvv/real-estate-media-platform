@@ -86,10 +86,12 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
          title="Property Details"
           subtitle="Please take a moment to review and complete property details."
           isOpen={isOpen}
-           onClose={() => setIsOpen(false)} 
+          onClose={() => setIsOpen(false)} 
+          saveLabel = ""
         onSave={() => {
           // 后续接入 API 时在这里处理
           handleClose();
+        
         }}
       >
         <PropertyForm initialData={editingProperty} />
