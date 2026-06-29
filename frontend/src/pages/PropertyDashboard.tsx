@@ -7,7 +7,7 @@ import Modal from "../components/Modal";
 import PropertyForm from "../components/PropertyForm";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import PhotographyModal from "../components/PhotographyModal";
+
 
 
 
@@ -16,7 +16,7 @@ const PropertyDashboard = () => {
  const { id } = useParams();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isPhotographyOpen, setPhotographyOpen] = useState(false);
+
   const location = useLocation();
   const property = location.state?.property;
   const navigate = useNavigate()
@@ -72,15 +72,7 @@ return (
     </Modal>
 
 
-     <Modal
-      title="Upload Photography"
-      subtitle=""
-      isOpen={isPhotographyOpen}
-      onClose={() => setPhotographyOpen(false)}
-      onSave={() => setPhotographyOpen(false)}
-    >
-      <PhotographyModal  />
-    </Modal>
+    
 
 
   </>
