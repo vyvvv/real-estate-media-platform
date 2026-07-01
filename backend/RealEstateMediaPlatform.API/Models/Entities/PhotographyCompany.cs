@@ -7,7 +7,7 @@ public class PhotographyCompany
     public required string Id {get;set;}
     public required string PhotographyCompanyName {get;set;}
 
-    public required AgentPhotographyCompany agentPhotographyCompany{get;set;}
+    public ICollection<AgentPhotographyCompany> AgentPhotographyCompanies {get;set;} = new List <AgentPhotographyCompany>();
 
 
 }

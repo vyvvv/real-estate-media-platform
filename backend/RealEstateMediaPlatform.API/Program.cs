@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RealEstateMediaPlatform.API.Data;
 using RealEstateMediaPlatform.API.Models;
+using RealEstateMediaPlatform.API.Models.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,9 +12,8 @@ builder.Services.AddSwaggerGen();
 
 // 数据库连接
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseMySql(
-        builder.Configuration.GetConnectionString("DefaultConnection"),
-        ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
 

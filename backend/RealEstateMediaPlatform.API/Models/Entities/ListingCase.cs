@@ -3,6 +3,7 @@ using RealEstateMediaPlatform.API.Models.Enums;
 
 namespace RealEstateMediaPlatform.API.Models.Entities;
 
+
 public class ListingCase
 {
     public int Id {get; set;}
@@ -12,7 +13,7 @@ public class ListingCase
     public required string City {get; set;}
     public required string State {get; set;}
 
-    public required int Postcode {get; set;}  
+    public int Postcode {get; set;}  
 
     public decimal Longitude {get; set;}
     public decimal Latitude {get; set;}
@@ -38,6 +39,7 @@ public class ListingCase
  
     public required string UserId {get; set;}
     public required ApplicationUser User { get; set; }
+    public ICollection<AgentListingCase> AgentListingCases { get; set; } = new List<AgentListingCase>();
 
 }
 
