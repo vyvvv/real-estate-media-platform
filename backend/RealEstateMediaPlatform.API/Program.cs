@@ -34,6 +34,15 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+// 模拟数据库迁移和数据填充
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await DataSeeder.SeedAsync(context, userManager, roleManager);
+}
 
 app.UseCors("AllowReactApp");
 

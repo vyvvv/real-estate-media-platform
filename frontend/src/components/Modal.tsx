@@ -38,13 +38,13 @@ const Modal = ({
           >
             Cancel
           </button>
-          <button
-            type="button"
-            onClick={onSave}
-            className="px-4 py-2 rounded-full bg-sky-600 text-white text-sm hover:bg-sky-700"
-          >
-            Save
-          </button>
+<button
+  type="button"
+  onClick={onSave}
+  className="px-4 py-2 rounded-full bg-sky-600 text-white text-sm hover:bg-sky-700"
+>
+  Save
+</button>
         </div>
       </div>
     </div>

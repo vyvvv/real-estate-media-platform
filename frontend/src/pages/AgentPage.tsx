@@ -1,15 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginNavBar from "../components/LoginNavBar";
 import SearchBar from "../components/SearchBar";
 import Modal from "../components/Modal";
 import AgentForm from "../components/AgentForm";
 import AgentTable from "../components/AgentTable";
-import { mockAgent } from "../data/mockAgent";
+import { getCaseContacts } from "../api/caseContactApi";
 
+import type { Agent } from "../types/Agent";
 
 function AgentPage() {
 
   const [isOpen, setIsOpen] = useState(false);
+  const [agents,setAgents] = useState<Agent[]>([]);
+
+  useEffect(() => {
+    async function loadAgents(){
+      const data = await getCaseContacts();
+      setAgents(data);
+    }
+    loadAgents();
+  }, []);
 
   return (
     <div>
@@ -40,7 +50,7 @@ function AgentPage() {
          </div>
 
           <div className="mt-6 w-full">
-          <AgentTable agents={mockAgent}/></div>
+          <AgentTable agents={agents}/></div>
 
 
       </main>

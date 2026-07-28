@@ -1,29 +1,43 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { type PropertyFormProps } from "../types/Property";
 
-const PropertyForm = ({ initialData }: PropertyFormProps) => {
+const PropertyForm = ({ initialData, onChange }: PropertyFormProps) => {
   const statusMap: Record<number, string> = {
-    1: "For Sale",
-    2: "For Rent",
-    3: "Auction",
+    0: "For Sale",
+    1: "For Rent",
+    2: "Auction",
   };
   const typeMap: Record<number, string> = {
-    1: "House",
+    0: "House",
+    1: "Apartment/Units",
     2: "Town House",
     3: "Villa",
-    4: "Apartment / Unit",
-    5: "Others",
+    4: "Others",
   };
 
+  
 
+  function saleCategoryToNumber(value: string): number {
+    if (value === "For Rent") return 1;
+    if (value === "Auction") return 2;
+    return 0;
+  }
 
-   const [status, setStatus] = useState(
-    initialData? statusMap[initialData.listingCaseStatus] : "For Sale",
+  function propertyTypeToNumber(value: string): number {
+    if (value === "Apartment/Units") return 1;
+    if (value === "Town House") return 2;
+    if (value === "Villa") return 3;
+    if (value === "Others") return 4;
+    return 0;
+  }
+
+  const [status, setStatus] = useState(
+    initialData ? statusMap[initialData.saleCategory] : "For Sale",
   );
 
   const [propertyType, setPropertyType] = useState(
-  initialData ? typeMap[initialData.propertyType] : ""
-);
+    initialData ? typeMap[initialData.propertyType] : "",
+  );
   const [bed, setBed] = useState(initialData?.bedrooms ?? 0);
   const [bath, setBath] = useState(initialData?.bathrooms ?? 0);
   const [car, setCar] = useState(initialData?.garages ?? 0);
@@ -36,6 +50,26 @@ const PropertyForm = ({ initialData }: PropertyFormProps) => {
   const [postcode, setPostcode] = useState(initialData?.postcode ?? "");
   const [price, setPrice] = useState(initialData?.price ?? 0);
 
+  useEffect(() => {
+  onChange?.({
+    title,
+    description: "",
+    street,
+    city,
+    state,
+    postcode: Number(postcode),
+    price: Number(price),
+    bedrooms: bed,
+    bathrooms: bath,
+    garages: car,
+    floorArea: Number(area),
+    propertyType: propertyTypeToNumber(propertyType),
+    saleCategory: saleCategoryToNumber(status),
+    longitude: 0,
+    latitude: 0,
+  });
+}, [title, street, city, state, postcode, price, bed, bath, car, area, propertyType, status, onChange]);
+
   return (
     <div className="space-y-4 ">
       <div>
@@ -45,7 +79,7 @@ const PropertyForm = ({ initialData }: PropertyFormProps) => {
         <input
           type="text"
           value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value )}
           className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         />
       </div>

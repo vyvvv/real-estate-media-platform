@@ -1,3 +1,5 @@
+import type { CreateListingRequest } from "./ListingCase";
+
 export type Property ={
 
     id:number;
@@ -24,6 +26,8 @@ export type Property ={
 }
 
 
+
 export interface PropertyFormProps {
   initialData?: Property | null;
+  onChange?: (data: CreateListingRequest) => void;
 }

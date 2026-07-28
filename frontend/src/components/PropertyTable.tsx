@@ -6,23 +6,26 @@ import { useNavigate } from "react-router-dom";
 
 type PropertyTableProps = {
   properties: Property[];
+  onDelete: (id: number) => Promise<void>;
 };
+
 
 
 const statusMap: Record<number, string> = {
-  1: "For Sale",
-  2: "For Rent",
-  3: "Auction",
-};
-const typeMap: Record<number, string> = {
-  1: "House",
-  2: "Townhouse",
-  3: "Villa",
-  4: "Apartment / Unit",
-  5: "Others",
+  0: "Created",
+  1: "Pending",
+  2: "Delivered",
 };
 
-const PropertyTable = ({ properties }: PropertyTableProps) => {
+const typeMap: Record<number, string> = {
+  0: "House",
+  1: "Apartment / Unit",
+  2: "Townhouse",
+  3: "Villa",
+  4: "Others",
+};
+
+const PropertyTable = ({ properties, onDelete }: PropertyTableProps) => {
 
   const navigate = useNavigate();
   const [editingProperty, setEditingProperty] = useState<Property | null>(null);
@@ -63,7 +66,7 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
             </td>
             <td className="py-3 px-4">
               <span className="bg-yellow-100 text-yellow-700 text-xs px-2 py-1 rounded-full">
-                {statusMap[property.listingCaseStatus] ?? "Unknown"}
+                {statusMap[property.listingCaseStatus] ?? "Created"}
               </span>
             </td>
             <td className="py-3 px-4">
@@ -73,7 +76,7 @@ const PropertyTable = ({ properties }: PropertyTableProps) => {
                     // setIsOpen(true);   */}
                 Edit
               </button>
-              <button className="text-red-500 hover:text-red-700 text-xs">
+              <button className="text-red-500 hover:text-red-700 text-xs" onClick={() => onDelete(property.id)}> 
                 Delete
               </button>
             </td>

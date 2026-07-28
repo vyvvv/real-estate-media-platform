@@ -38,6 +38,14 @@ namespace RealEstateMediaPlatform.API.Data
                 .HasForeignKey(m => m.ListingCaseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            moduleBuilder.Entity<ListingCase>()
+                .Property(l => l.Latitude)
+                .HasPrecision(9, 6);
+
+            moduleBuilder.Entity<ListingCase>()
+                .Property(l => l.Longitude)
+                .HasPrecision(9, 6);
+
             moduleBuilder.Entity<MediaAsset>()
                 .HasOne(m => m.User)
                 .WithMany()
