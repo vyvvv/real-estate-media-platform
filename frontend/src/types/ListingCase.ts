@@ -77,6 +77,8 @@ export type CreateListingRequest = {
   saleCategory: SaleCategory;
 };
 
+export type UpdateListingRequest = CreateListingRequest;
+
 export interface MediaAsset {
   id: number;
 

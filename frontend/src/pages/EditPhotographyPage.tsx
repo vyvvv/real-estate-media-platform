@@ -1,13 +1,42 @@
-import { useState } from "react";
+
 import LoginNavBar from "../components/LoginNavBar";
 import Modal from "../components/Modal";
 import PhotographyModal from "../components/PhotographyModal";
 import { useNavigate } from "react-router-dom";
 
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
+import PropertyBreadcrumb from "../components/PropertyBreadcrumb";
+import { getListingById } from "../api/listingApi";
+import type { Property } from "../types/Property";
+
 const EditPhotographyPage = () => {
   const [images, setImages] = useState<string[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+
+  const { id } = useParams();
+const [property, setProperty] =
+  useState<Property | null>(null);
+
+  useEffect(() => {
+  if (!id) {
+    return;
+  }
+
+  async function loadProperty() {
+    const data = await getListingById(Number(id));
+
+    setProperty({
+      ...data,
+      createdAt: new Date(data.createdAt),
+    });
+  }
+
+  loadProperty();
+}, [id]);
+
 
   const [pendingFiles, setPendingFiles] = useState<File[]>([]);
 
@@ -26,10 +55,10 @@ const EditPhotographyPage = () => {
 
         {/* 面包屑在左边 */}
         <div className="flex justify-between items-center mb-12">
-          <p className="text-sm text-gray-500">
-            Property › 170 Russell Street, Melbourne, Victoria, 3000 ›
-            Photography
-          </p>
+          <PropertyBreadcrumb
+  property={property}
+  currentPage="Photography"
+/>
           <button
             onClick={() => navigate(-1)}
             className="text-sm text-gray-500 hover:text-gray-700"

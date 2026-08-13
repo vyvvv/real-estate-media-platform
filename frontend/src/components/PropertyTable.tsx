@@ -1,7 +1,7 @@
 import { type Property } from "../types/Property";
-import { useState } from "react";
-import Modal from "./Modal";
-import PropertyForm from "./PropertyForm";
+// import { useState } from "react";
+// import Modal from "./Modal";
+// import PropertyForm from "./PropertyForm";
 import { useNavigate } from "react-router-dom";
 
 type PropertyTableProps = {
@@ -28,12 +28,8 @@ const typeMap: Record<number, string> = {
 const PropertyTable = ({ properties, onDelete }: PropertyTableProps) => {
 
   const navigate = useNavigate();
-  const [editingProperty, setEditingProperty] = useState<Property | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const handleClose = () => {
-    setIsOpen(false);
-    setEditingProperty(null); // 关闭时清空
-  };
+
+ 
 
   return (
     <>
@@ -85,20 +81,7 @@ const PropertyTable = ({ properties, onDelete }: PropertyTableProps) => {
       </tbody>
     </table>
 
-    <Modal
-         title="Property Details"
-          subtitle="Please take a moment to review and complete property details."
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)} 
-          saveLabel = ""
-        onSave={() => {
-          // 后续接入 API 时在这里处理
-          handleClose();
-        
-        }}
-      >
-        <PropertyForm initialData={editingProperty} />
-      </Modal>
+
       </>
     
     

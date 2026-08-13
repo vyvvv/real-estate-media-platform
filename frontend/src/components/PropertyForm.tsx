@@ -65,10 +65,10 @@ const PropertyForm = ({ initialData, onChange }: PropertyFormProps) => {
     floorArea: Number(area),
     propertyType: propertyTypeToNumber(propertyType),
     saleCategory: saleCategoryToNumber(status),
-    longitude: 0,
-    latitude: 0,
+    longitude: initialData?.longitude ?? 0,
+    latitude: initialData?.latitude ?? 0,
   });
-}, [title, street, city, state, postcode, price, bed, bath, car, area, propertyType, status, onChange]);
+}, [title, street, city, state, postcode, price, bed, bath, car, area, propertyType, status, onChange, initialData?.longitude, initialData?.latitude]);
 
   return (
     <div className="space-y-4 ">
@@ -128,7 +128,7 @@ const PropertyForm = ({ initialData, onChange }: PropertyFormProps) => {
 
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          Search Address
+          Address
         </label>
         <input
           type="text"
@@ -143,7 +143,7 @@ const PropertyForm = ({ initialData, onChange }: PropertyFormProps) => {
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            City
+            Suburb
           </label>
           <input
             type="text"

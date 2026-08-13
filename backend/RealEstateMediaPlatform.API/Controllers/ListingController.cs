@@ -126,34 +126,62 @@ public class ListingsController : ControllerBase
 }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult> UpdatingListing(int id,[FromBody]ListingCase listingCase)
+    public async Task<ActionResult> UpdatingListing(int id,[FromBody]UpdateListingDto dto)
     {
-        var existing = await _context.ListingCases.FindAsync(id);
-        if (existing == null) return NotFound();
+    var existing = await _context.ListingCases
+        .FirstOrDefaultAsync(listing =>
+            listing.Id == id &&
+            !listing.IsDeleted);
 
-        if ( listingCase == null || id!=listingCase.Id)
-        {
-            return BadRequest("Invalid listing case data.");
-        }
-
-        existing.Title = listingCase.Title;
-        existing.Description = listingCase.Description;
-        existing.Street = listingCase.Street;
-        existing.City = listingCase.City;
-        existing.State = listingCase.State;     
-        existing.Postcode = listingCase.Postcode;
-        existing.Longitude = listingCase.Longitude;
-        existing.Latitude = listingCase.Latitude;
-        existing.Price = listingCase.Price;
-        existing.Bedrooms = listingCase.Bedrooms;
-        existing.Bathrooms = listingCase.Bathrooms;
-        existing.Garages = listingCase.Garages;
-        existing.FloorArea = listingCase.FloorArea;
-
-        _context.ListingCases.Update(existing);
-        await _context.SaveChangesAsync();
-        return Ok(new {message = "Listing Case updated successfully", listingCaseId = listingCase.Id});
+    if (existing == null)
+    {
+        return NotFound("Listing case not found.");
     }
+
+    if (!Enum.IsDefined(
+        typeof(PropertyType),
+        dto.PropertyType))
+    {
+        return BadRequest("Invalid property type.");
+    }
+
+    if (!Enum.IsDefined(
+        typeof(SaleCategory),
+        dto.SaleCategory))
+    {
+        return BadRequest("Invalid sale category.");
+    }
+
+    existing.Title = dto.Title.Trim();
+    existing.Description = dto.Description?.Trim() ?? "";
+    existing.Street = dto.Street.Trim();
+    existing.City = dto.City.Trim();
+    existing.State = dto.State.Trim();
+    existing.Postcode = dto.Postcode;
+
+    existing.Longitude = dto.Longitude;
+    existing.Latitude = dto.Latitude;
+
+    existing.Price = dto.Price;
+    existing.Bedrooms = dto.Bedrooms;
+    existing.Bathrooms = dto.Bathrooms;
+    existing.Garages = dto.Garages;
+    existing.FloorArea = dto.FloorArea;
+
+    existing.PropertyType =
+        (PropertyType)dto.PropertyType;
+
+    existing.SaleCategory =
+        (SaleCategory)dto.SaleCategory;
+
+    await _context.SaveChangesAsync();
+
+    return Ok(new
+    {
+        message = "Listing Case updated successfully",
+        listingCaseId = existing.Id
+    });
+}
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> DeleteListing(int id)

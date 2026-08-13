@@ -1,40 +1,43 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace RealEstate.API.DTOs.Listings;
-public class CreateListingDto
+public class UpdateListingDto
 {
     [Required]
     public string Title { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
 
-[Required]
+    public string? Description { get; set; }
+
+    [Required]
     public string Street { get; set; } = string.Empty;
 
     [Required]
     public string City { get; set; } = string.Empty;
+
     [Required]
     public string State { get; set; } = string.Empty;
+
     [Required]
     public int Postcode { get; set; }
 
     public decimal Longitude { get; set; }
     public decimal Latitude { get; set; }
 
-[Required]
+    [Range(0, double.MaxValue)]
     public double Price { get; set; }
 
-    [Required]
+    [Range(0, 20)]
     public int Bedrooms { get; set; }
-    [Required]
+
+    [Range(0, 20)]
     public int Bathrooms { get; set; }
-    [Required]
+
+    [Range(0, 20)]
     public int Garages { get; set; }
-    [Required]
+
+    [Range(0, double.MaxValue)]
     public double FloorArea { get; set; }
 
-    [Required]
     public int PropertyType { get; set; }
-
-    [Required]
     public int SaleCategory { get; set; }
 }
