@@ -7,31 +7,25 @@ namespace RealEstateMediaPlatform.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CaseContactController : ControllerBase
+   public class CaseContactController : BaseController
     {
-        private readonly ApplicationDbContext _context;
-
-        public CaseContactController(ApplicationDbContext context)
+        private readonly ICaseContactService _caseContactService;
+        public CaseContactController(ICaseContactService caseContactService)
         {
-            _context = context;
+            _caseContactService = caseContactService;
+
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetCaseContacts()
-        {
-            var contacts = await _context.CaseContacts.Select(c => new
-            {
-                c.ContactId,
-                c.FirstName,
-                c.LastName,
-                c.CompanyName,
-                c.ProfileUrl,
-                c.Email,
-                c.PhoneNumber,
-                c.ListingCaseId
-            }).ToListAsync();
+        [HttpPost("casecontact")]
+        [Authorize(Roles = "Admin,Agent")]
 
-            return Ok(contacts);
+        public async Task<IActionResult> CreateCaseContact([FromBody] CaseContactCreateRequestDto caseContactCreateRequestDto)
+        {
+            var result = await _caseContactService.CreateCaseContactAsync(caseContactCreateRequestDto);
+            return Ok(ApiResponse<object>.Success(result, "Case contact created!"));
+
         }
+
+
     }
 }

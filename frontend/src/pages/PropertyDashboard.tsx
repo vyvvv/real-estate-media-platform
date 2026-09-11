@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import type { Property } from "../types/Property";
 import type { UpdateListingRequest  } from "../types/ListingCase";
 import { getListingById, updateListing } from "../api/listingApi";
-import PropertyBreadcrumb from "../components/PropertyBreadCrumb";
+import PropertyBreadcrumb from "../components/PropertyBreadcrumb";
 
 const PropertyDashboard = () => {
   const { id } = useParams();
