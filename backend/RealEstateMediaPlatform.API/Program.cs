@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using RealEstateMediaPlatform.API.Common;
 using RealEstateMediaPlatform.API.Data;
+using RealEstateMediaPlatform.API.DTOs.ListingCase;
 using RealEstateMediaPlatform.API.Exceptions;
 using RealEstateMediaPlatform.API.Models;
 using RealEstateMediaPlatform.API.Repositories.CaseContactRepositories;
@@ -80,21 +81,27 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 // 数据库连接
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+// builder.Services.AddDbContext<RealEstateMediaPlatform.API.Data.RealEstateDbContext>(
+//     options =>options.UseSqlServer(
+//         builder.Configuration.GetConnectionString("RealEstateDb")
+//     )
+// ); 
+builder.Services.AddDbContext<RealEstateDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    )
-); 
+        builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 builder.Services.AddSingleton<MongoDbContext>(); //Singleton = 单例 ：整个应用程序运行期间，只创建一个 MongoDbContext 实例，所有请求共用这一个实例
 builder.Services.Configure<MongoDbSettings>(builder.Configuration.GetSection("MongoDbSettings"));
 
 
 // Identity 注册
 builder.Services.AddIdentity<User, Role>()
-    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddEntityFrameworkStores<RealEstateMediaPlatform.API.Data.RealEstateDbContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(cfg => { },typeof(Program));
 //注册 AutoMapper 库，这是一个用来自动把一个对象的属性"映射/复制"到另一个对象的工具，常用于把数据库实体（Entity）转换成 DTO，或者反过来
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
@@ -135,19 +142,26 @@ builder.Services.AddScoped<IMediaAssetService, MediaAssetService>();
 builder.Services.AddScoped<IMediaAssetRepository,MediaAssetRepository>();
 builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
 
+builder.Services.AddScoped<IValidator<ListingCaseCreateRequestDto>, ListingCaseCreateValidator>();
+
+builder.Services.AddSingleton(cf =>
+{
+    var config = cf.GetRequiredService<IConfiguration>();
+    var connectionString = config["AzureBlobStorage:ConnectionString"];
+    return new BlobServiceClient(connectionString);
+});
+
+builder.Services.AddSingleton<IAzureBlobStorageService, AzureBlobStorageService>();
+
+builder.Services.AddScoped<JwtTokenService>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<ListingCaseCreateValidator>();
+
 var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-// 模拟数据库迁移和数据填充
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
-    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
 
-    await DataSeeder.SeedAsync(context, userManager, roleManager);
-}
 
 app.UseCors("AllowReactApp");
 
@@ -157,7 +171,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

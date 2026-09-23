@@ -19,11 +19,11 @@ namespace RealEstateMediaPlatform.API.Repositories.ListingCaseRepositories
         Task<ListingCase> UpdateListingCaseStatusAsync(ListingCase listingCase);
 
         Task<bool> DeleteMediaAssetAsync(Models.MediaAsset MediaAsset);
-        Task<bool> DeleteCaseContactAsync(Recam.Models.CaseContact casecontact);
+        Task<bool> DeleteCaseContactAsync(RealEstateMediaPlatform.API.Models.CaseContact casecontact);
 
 
         Task<Models.MediaAsset?> GetValidMediaByIdAsync(int mediaId);
-        Task<Recam.Models.CaseContact?> GetValidCaseContactByIdAsync(int contactId);
+        Task<RealEstateMediaPlatform.API.Models.CaseContact?> GetValidCaseContactByIdAsync(int contactId);
         Task<MediaAsset> SetImageAsHeroAsync(ListingCase listingCase, MediaAsset image);
 
         Task<List<int>> GetValidMediaIdsAsync(int listingCaseId);

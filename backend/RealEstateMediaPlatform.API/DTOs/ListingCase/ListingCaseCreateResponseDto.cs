@@ -13,7 +13,7 @@ namespace RealEstateMediaPlatform.API.DTOs.ListingCase
         public double FloorArea { get; set; } = 0;  
         public PropertyType PropertyType { get; set; }
         public SaleCategory SaleCategory { get; set; }
-        public ListcaseStatus ListcaseStatus { get; set; }
+        public ListCaseStatus ListCaseStatus { get; set; }
 
     }
 }

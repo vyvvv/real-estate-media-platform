@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateMediaPlatform.API.Data;
+using RealEstateMediaPlatform.API.Controllers;
+using RealEstateMediaPlatform.API.Services.CaseContactServices;
+using RealEstateMediaPlatform.API.DTOs.CaseContact;
+using RealEstateMediaPlatform.API.Common;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace RealEstateMediaPlatform.API

@@ -8,8 +8,8 @@ namespace RealEstateMediaPlatform.API.Repositories.MediaAssetRepositories
     public class MediaAssetRepository : IMediaAssetRepository
     {
 
-        private readonly RecamDbContext _dbContext;
-        public MediaAssetRepository(RecamDbContext dbContext)
+        private readonly RealEstateDbContext _dbContext;
+        public MediaAssetRepository(RealEstateDbContext dbContext)
                 {
                     _dbContext = dbContext;
             

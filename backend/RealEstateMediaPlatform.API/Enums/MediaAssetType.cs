@@ -1,13 +1,14 @@
-namespace RealEstateMediaPlatform.API.Enums;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-public enum MediaType
+namespace RealEstateMediaPlatform.API.Enums
 {
-    Picture = 1,
-    Video = 2,
-    FloorPlan = 3,
+    public enum MediaAssetType
+    {
+        Picture = 1,
+        Video = 2,
+        FloorPlan = 3,
 
-    VRTour = 4
+        VRTour = 4
 
-
-
+    }
 }

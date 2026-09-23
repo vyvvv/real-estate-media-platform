@@ -68,10 +68,10 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
         {
             //Get valid ListingCase
             var existingCase = await GetListingCaseWithValidationAsync(listingCaseId);
-            if (existingCase.ListcaseStatus == ListcaseStatus.Pending)//need to confirm the logical here futher
+            if (existingCase.ListCaseStatus == ListCaseStatus.Pending)//need to confirm the logical here futher
             { 
                throw new InvalidOperationException($"ListingCase in " +
-                   $"{existingCase.ListcaseStatus} status not allow delete");
+                   $"{existingCase.ListCaseStatus} status not allow delete");
             }
 
             var result = await _listingCaseRepository.DeleteListingCaseAsync(existingCase);
@@ -184,18 +184,18 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
 
 
         //Update ListingCase Status
-        public async Task<ListingCaseGetResponseDto> UpdateListingCaseStatusAsync(int listingCaseId, ListcaseStatus newStatus, string userId, string role)
+        public async Task<ListingCaseGetResponseDto> UpdateListingCaseStatusAsync(int listingCaseId, ListCaseStatus newStatus, string userId, string role)
         {
             var listingCase = await GetListingCaseWithValidationAsync(listingCaseId);
             //Validate ListingCase Access by check role
             ValidateListingCaseAccess(listingCase, userId, role, "access");
 
             //Validate status transition
-            ValidateStatusTransition(listingCase.ListcaseStatus, newStatus);
+            ValidateStatusTransition(listingCase.ListCaseStatus, newStatus);
 
-            var previousStatus = listingCase.ListcaseStatus;
+            var previousStatus = listingCase.ListCaseStatus;
             //Update ListingCase
-            listingCase.ListcaseStatus = newStatus;
+            listingCase.ListCaseStatus = newStatus;
             listingCase.UpdatedAt = DateTime.UtcNow;//mock new listingcase have to have this filed?
             listingCase.UpdatedBy = userId;//mock new listingcase have to have this filed?
 
@@ -203,7 +203,7 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
 
             await SaveListingCaseEventAsync(
                EventTypes.CASE_UPDATE,
-               $"ListingCase status updated from {previousStatus} to {listingCase.ListcaseStatus}",
+               $"ListingCase status updated from {previousStatus} to {listingCase.ListCaseStatus}",
                listingCase.Id.ToString(),
                userId,
                true
@@ -425,13 +425,13 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
 
 
         //Validate status transition workflow
-        private static void ValidateStatusTransition(ListcaseStatus currentStatus, ListcaseStatus newStatus)
+        private static void ValidateStatusTransition(ListCaseStatus currentStatus, ListCaseStatus newStatus)
         {
-            var allowedTransitions = new Dictionary<ListcaseStatus, ListcaseStatus[]>
+            var allowedTransitions = new Dictionary<ListCaseStatus, ListCaseStatus[]>
             {
-                [ListcaseStatus.Created] = [ListcaseStatus.Pending],
-                [ListcaseStatus.Pending] = [ListcaseStatus.Delivered, ListcaseStatus.Created],
-                [ListcaseStatus.Delivered] = []
+                [ListCaseStatus.Created] = [ListCaseStatus.Pending],
+                [ListCaseStatus.Pending] = [ListCaseStatus.Delivered, ListCaseStatus.Created],
+                [ListCaseStatus.Delivered] = []
             };
 
             if (!allowedTransitions.ContainsKey(currentStatus) ||
@@ -500,7 +500,7 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
             string resourceId,string? operatorUserId, bool isSuccess)
 
         {
-            var eventLog = new RecamEventLog
+            var eventLog = new RealEstateEventLog
             {
                 EventType = eventType,
                 EventMessage = eventMessage,

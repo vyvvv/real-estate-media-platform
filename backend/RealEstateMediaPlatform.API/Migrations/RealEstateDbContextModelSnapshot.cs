@@ -10,8 +10,8 @@ using RealEstateMediaPlatform.API.Data;
 
 namespace RealEstateMediaPlatform.API.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RealEstateDbContext))]
+    partial class RealEstateDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -22,31 +22,34 @@ namespace RealEstateMediaPlatform.API.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
+            modelBuilder.Entity("AgentListingCase", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("AgentId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("ListingCaseId")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.HasKey("AgentId", "ListingCaseId");
 
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                    b.HasIndex("ListingCaseId");
 
-                    b.HasKey("Id");
+                    b.ToTable("AgentListingCase");
+                });
 
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasDatabaseName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+            modelBuilder.Entity("AgentPhotographyCompany", b =>
+                {
+                    b.Property<string>("AgentId")
+                        .HasColumnType("nvarchar(450)");
 
-                    b.ToTable("AspNetRoles", (string)null);
+                    b.Property<string>("PhotographyCompanyId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("AgentId", "PhotographyCompanyId");
+
+                    b.HasIndex("PhotographyCompanyId");
+
+                    b.ToTable("AgentPhotographyCompany");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -155,62 +158,239 @@ namespace RealEstateMediaPlatform.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.Agent", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.CaseContact", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ContactId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
-                    b.Property<string>("AgentFirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AgentLastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AvatarUrl")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"));
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
-                    b.ToTable("Agents");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ListingCaseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ProfileUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ContactId");
+
+                    b.HasIndex("ListingCaseId");
+
+                    b.ToTable("CaseContacts");
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.AgentListingCase", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.ListingCase", b =>
                 {
-                    b.Property<string>("AgentId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Bathrooms")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Bedrooms")
+                        .HasColumnType("int");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("FloorArea")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Garages")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Latitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<int>("ListCaseStatus")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Longitude")
+                        .HasPrecision(9, 6)
+                        .HasColumnType("decimal(9,6)");
+
+                    b.Property<int>("Postcode")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PropertyType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SaleCategory")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ShareLinkGeneratedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ShareLinkToken")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ShareLinkUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ListingCases");
+                });
+
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.MediaAsset", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsHero")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSelect")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ListingCaseId")
                         .HasColumnType("int");
 
-                    b.HasKey("AgentId", "ListingCaseId");
+                    b.Property<int>("MediaType")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MediaUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UploadedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("ListingCaseId");
 
-                    b.ToTable("AgentListingCases");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("MediaAssets");
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.AgentPhotographyCompany", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Role", b =>
                 {
-                    b.Property<string>("AgentId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("PhotographyCompanyId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("AgentId", "PhotographyCompanyId");
+                    b.Property<string>("Name")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.HasIndex("PhotographyCompanyId");
+                    b.Property<string>("NormalizedName")
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
-                    b.ToTable("AgentPhotographyCompanies");
+                    b.HasKey("Id");
+
+                    b.HasIndex("NormalizedName")
+                        .IsUnique()
+                        .HasDatabaseName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
+
+                    b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            ConcurrencyStamp = "seed-role-admin",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            ConcurrencyStamp = "seed-role-agent",
+                            Name = "Agent",
+                            NormalizedName = "AGENT"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            ConcurrencyStamp = "seed-role-photographycompany",
+                            Name = "PhotographyCompany",
+                            NormalizedName = "PHOTOGRAPHYCOMPANY"
+                        });
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -279,189 +459,77 @@ namespace RealEstateMediaPlatform.API.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.UseTptMappingStrategy();
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.CaseContact", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Agent", b =>
                 {
-                    b.Property<int>("ContactId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.HasBaseType("RealEstateMediaPlatform.API.Models.User");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ContactId"));
+                    b.Property<string>("AgentFirstName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AgentLastName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("AvatarUrl")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CompanyName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ListingCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ProfileUrl")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ContactId");
-
-                    b.HasIndex("ListingCaseId");
-
-                    b.ToTable("CaseContacts");
+                    b.ToTable("Agents", (string)null);
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.ListingCase", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.PhotographyCompany", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Bathrooms")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Bedrooms")
-                        .HasColumnType("int");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("FloorArea")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Garages")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("Latitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<int>("ListCaseStatus")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Longitude")
-                        .HasPrecision(9, 6)
-                        .HasColumnType("decimal(9,6)");
-
-                    b.Property<int>("Postcode")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
-
-                    b.Property<int>("PropertyType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SaleCategory")
-                        .HasColumnType("int");
-
-                    b.Property<string>("State")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ListingCases");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.MediaAsset", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsHero")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsSelected")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("ListingCaseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MediaType")
-                        .HasColumnType("int");
-
-                    b.Property<string>("MediaUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ListingCaseId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("MediaAssets");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.PhotographyCompany", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasBaseType("RealEstateMediaPlatform.API.Models.User");
 
                     b.Property<string>("PhotographyCompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.ToTable("PhotographyCompanies", (string)null);
+                });
 
-                    b.ToTable("PhotographyCompanies");
+            modelBuilder.Entity("AgentListingCase", b =>
+                {
+                    b.HasOne("RealEstateMediaPlatform.API.Models.Agent", null)
+                        .WithMany()
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateMediaPlatform.API.Models.ListingCase", null)
+                        .WithMany()
+                        .HasForeignKey("ListingCaseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AgentPhotographyCompany", b =>
+                {
+                    b.HasOne("RealEstateMediaPlatform.API.Models.Agent", null)
+                        .WithMany()
+                        .HasForeignKey("AgentId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateMediaPlatform.API.Models.PhotographyCompany", null)
+                        .WithMany()
+                        .HasForeignKey("PhotographyCompanyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -470,7 +538,7 @@ namespace RealEstateMediaPlatform.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -479,7 +547,7 @@ namespace RealEstateMediaPlatform.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,13 +556,13 @@ namespace RealEstateMediaPlatform.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.Role", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -503,127 +571,80 @@ namespace RealEstateMediaPlatform.API.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.Agent", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.CaseContact", b =>
                 {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", "User")
+                    b.HasOne("RealEstateMediaPlatform.API.Models.ListingCase", "ListingCase")
+                        .WithMany("CaseContacts")
+                        .HasForeignKey("ListingCaseId");
+
+                    b.Navigation("ListingCase");
+                });
+
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.ListingCase", b =>
+                {
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", "User")
+                        .WithMany("ListingCase")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.MediaAsset", b =>
+                {
+                    b.HasOne("RealEstateMediaPlatform.API.Models.ListingCase", "ListingCase")
+                        .WithMany("MediaAssets")
+                        .HasForeignKey("ListingCaseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ListingCase");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Agent", b =>
+                {
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("RealEstateMediaPlatform.API.Models.Entities.Agent", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.AgentListingCase", b =>
-                {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.Agent", "Agent")
-                        .WithMany("AgentListingCases")
-                        .HasForeignKey("AgentId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ListingCase", "ListingCase")
-                        .WithMany("AgentListingCases")
-                        .HasForeignKey("ListingCaseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Agent");
-
-                    b.Navigation("ListingCase");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.AgentPhotographyCompany", b =>
-                {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.Agent", "Agent")
-                        .WithMany("AgentPhotographyCompanies")
-                        .HasForeignKey("AgentId")
+                        .HasForeignKey("RealEstateMediaPlatform.API.Models.Agent", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.PhotographyCompany", "PhotographyCompany")
-                        .WithMany("AgentPhotographyCompanies")
-                        .HasForeignKey("PhotographyCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Agent");
-
-                    b.Navigation("PhotographyCompany");
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.CaseContact", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.PhotographyCompany", b =>
                 {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ListingCase", "ListingCase")
-                        .WithMany()
-                        .HasForeignKey("ListingCaseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ListingCase");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.ListingCase", b =>
-                {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.MediaAsset", b =>
-                {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ListingCase", "ListingCase")
-                        .WithMany()
-                        .HasForeignKey("ListingCaseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ListingCase");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.PhotographyCompany", b =>
-                {
-                    b.HasOne("RealEstateMediaPlatform.API.Models.Entities.ApplicationUser", null)
+                    b.HasOne("RealEstateMediaPlatform.API.Models.User", null)
                         .WithOne()
-                        .HasForeignKey("RealEstateMediaPlatform.API.Models.Entities.PhotographyCompany", "Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("RealEstateMediaPlatform.API.Models.PhotographyCompany", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.Agent", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.ListingCase", b =>
                 {
-                    b.Navigation("AgentListingCases");
+                    b.Navigation("CaseContacts");
 
-                    b.Navigation("AgentPhotographyCompanies");
+                    b.Navigation("MediaAssets");
                 });
 
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.ListingCase", b =>
+            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.User", b =>
                 {
-                    b.Navigation("AgentListingCases");
-                });
-
-            modelBuilder.Entity("RealEstateMediaPlatform.API.Models.Entities.PhotographyCompany", b =>
-                {
-                    b.Navigation("AgentPhotographyCompanies");
+                    b.Navigation("ListingCase");
                 });
 #pragma warning restore 612, 618
         }

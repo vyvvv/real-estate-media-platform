@@ -5,7 +5,7 @@ namespace RealEstateMediaPlatform.API.DTOs.User.IUser
     {
         string Id {get; set;}
         string UserName {get; set;}
-        string Password {get; set;}
+        string Email {get; set;}
 
     }
 }

@@ -10,10 +10,10 @@ namespace RealEstateMediaPlatform.API.Repositories.ListingCaseRepositories
 {
     public class ListingCaseRepository : IListingCaseRepository
     {
-        private readonly RecamDbContext _dbContext;
+        private readonly RealEstateDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public ListingCaseRepository(RecamDbContext dbContext, IMapper mapper)
+        public ListingCaseRepository(RealEstateDbContext dbContext, IMapper mapper)
         {
 
             _dbContext = dbContext;
@@ -76,7 +76,7 @@ namespace RealEstateMediaPlatform.API.Repositories.ListingCaseRepositories
 
 
         // Soft delete the case contact
-        public async Task<bool> DeleteCaseContactAsync(Recam.Models.CaseContact casecontact)
+        public async Task<bool> DeleteCaseContactAsync(RealEstateMediaPlatform.API.Models.CaseContact casecontact)
         {
             casecontact.IsDeleted = true;
             await _dbContext.SaveChangesAsync();
@@ -84,7 +84,7 @@ namespace RealEstateMediaPlatform.API.Repositories.ListingCaseRepositories
         }
 
         //Get Valid MediaAsset by checking Id
-        public async Task<Recam.Models.MediaAsset?> GetValidMediaByIdAsync(int mediaId)
+        public async Task<RealEstateMediaPlatform.API.Models.MediaAsset?> GetValidMediaByIdAsync(int mediaId)
         {
             var existingMedia = await _dbContext.MediaAssets
                 .FirstOrDefaultAsync(m=>m.Id== mediaId &&!m.IsDeleted);     
@@ -98,7 +98,7 @@ namespace RealEstateMediaPlatform.API.Repositories.ListingCaseRepositories
 
         //get valid case contact
 
-        public async Task<Recam.Models.CaseContact?> GetValidCaseContactByIdAsync(int contactId)
+        public async Task<RealEstateMediaPlatform.API.Models.CaseContact?> GetValidCaseContactByIdAsync(int contactId)
         {
 
             var exsitContact = await _dbContext.CaseContacts.FirstOrDefaultAsync(c => c.ContactId == contactId && !c.IsDeleted);

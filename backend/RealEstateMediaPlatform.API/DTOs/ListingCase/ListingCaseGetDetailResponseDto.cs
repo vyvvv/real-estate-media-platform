@@ -25,7 +25,7 @@ namespace RealEstateMediaPlatform.API.DTOs.ListingCase
         public DateTime CreatedAt { get; set; }
         public PropertyType PropertyType { get; set; }
         public SaleCategory SaleCategory { get; set; }
-        public ListcaseStatus ListcaseStatus { get; set; }
+        public ListCaseStatus ListCaseStatus { get; set; }
 
         public List<AgentGetDetailResponseDto> Agents { get; set; } = new List<AgentGetDetailResponseDto>();
         public List<CaseContactGetDetailResponseDto> CaseContacts { get; set; } = new List<CaseContactGetDetailResponseDto>();

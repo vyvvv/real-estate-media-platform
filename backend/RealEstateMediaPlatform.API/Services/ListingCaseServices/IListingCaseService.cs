@@ -16,7 +16,7 @@ namespace RealEstateMediaPlatform.API.Services.ListingCaseServices
         Task<ListingCaseGetResponseDto> UpdateListingCaseByAdminAsync(int listingCaseId, ListingCaseUpdateRequestDto listingCaseUpdateRequestDto,string userId);
         Task<bool> DeleteListingCaseAsync(int listingCaseId,string userId);
         Task<ListingCaseGetDetailResponseDto> GetListingCaseDetailByIdAsync(int listingCaseId, string userId, string role);
-        Task<ListingCaseGetResponseDto> UpdateListingCaseStatusAsync(int listingCaseId, ListcaseStatus newStatus, string userId, string role);
+        Task<ListingCaseGetResponseDto> UpdateListingCaseStatusAsync(int listingCaseId, ListCaseStatus newStatus, string userId, string role);
         Task<MediaAssetGroupedResponseDto> GetListingCaseMediaAssetAsync(int listingCaseId, string userId, string role);
         Task<List<CaseContactGetDetailResponseDto>> GetListingCaseContactAsync(int listingCaseId, string userId, string role);
         Task<bool> DeleteCaseContactAsync(int contactId);

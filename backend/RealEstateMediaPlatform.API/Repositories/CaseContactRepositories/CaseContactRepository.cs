@@ -1,17 +1,17 @@
 using AutoMapper;
-using Recam.Data;
-using Recam.DTOs.CaseContact;
-using Recam.Models;
+using RealEstateMediaPlatform.API.Data;
+using RealEstateMediaPlatform.API.DTOs.CaseContact;
+using RealEstateMediaPlatform.API.Models;
 
-namespace Recam.Repositories.CaseContactRepositories
+namespace RealEstateMediaPlatform.API.Repositories.CaseContactRepositories
 {
     public class CaseContactRepository: ICaseContactRepository
     {
 
-        private readonly RecamDbContext _dbContext;
+        private readonly RealEstateDbContext _dbContext;
         private readonly IMapper _mapper;
 
-        public CaseContactRepository(RecamDbContext dbContext, IMapper mapper)
+        public CaseContactRepository(RealEstateDbContext dbContext, IMapper mapper)
         {
             _dbContext = dbContext;
             _mapper = mapper;

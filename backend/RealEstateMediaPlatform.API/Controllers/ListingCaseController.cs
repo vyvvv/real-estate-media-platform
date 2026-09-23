@@ -116,7 +116,7 @@ namespace RealEstateMediaPlatform.API.Controllers
 
         [HttpPatch("{listingCaseId}/status/{newStatus}")]
         [Authorize]
-        public async Task<IActionResult> UpdateListingCaseStatus(int listingCaseId, ListcaseStatus newStatus) {
+        public async Task<IActionResult> UpdateListingCaseStatus(int listingCaseId, ListCaseStatus newStatus) {
 
             var (userId, role) = GetCurrentUserInfo();
             var result = await _listingCaseService.UpdateListingCaseStatusAsync(listingCaseId, newStatus, userId,role);

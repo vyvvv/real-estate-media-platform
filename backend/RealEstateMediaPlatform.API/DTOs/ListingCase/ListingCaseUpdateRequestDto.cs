@@ -13,7 +13,7 @@ namespace RealEstateMediaPlatform.API.DTOs.ListingCase
         public int Postcode { get; set; }
         public decimal Longitude { get; set; }
         public decimal Latitude { get; set; }
-        public double Price { get; set; }
+        public double? Price { get; set; }
         public int Bedrooms { get; set; }
         public int Bathrooms { get; set; }
         public int Garages { get; set; }
@@ -25,7 +25,7 @@ namespace RealEstateMediaPlatform.API.DTOs.ListingCase
         [EnumDataType(typeof(SaleCategory))]
         public SaleCategory? SaleCategory { get; set; }
 
-        [EnumDataType(typeof(ListcaseStatus))]
-        public ListcaseStatus? ListcaseStatus { get; set; }
+        [EnumDataType(typeof(ListCaseStatus))]
+        public ListCaseStatus? ListCaseStatus { get; set; }
     }
 }

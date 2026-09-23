@@ -9,7 +9,7 @@ using RealEstateMediaPlatform.API.DTOs.User.IUser;
 using RealEstateMediaPlatform.API.Models;
 using RealEstateMediaPlatform.API.Repositories.UserRepositories;
 using RealEstateMediaPlatform.API.Services.EmailSenderServices;
-
+using RealEstateMediaPlatform.API.Collections;
 
 
 namespace RealEstateMediaPlatform.API.Services.UserServices
@@ -20,10 +20,10 @@ namespace RealEstateMediaPlatform.API.Services.UserServices
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly JwtTokenService _jwtTokenService;
-        private readonly RecamDbContext _dbContext;
+        private readonly RealEstateDbContext _dbContext;
         private readonly MongoDbContext _mongoDbContext;
         private readonly IEmailSenderService _emailSenderService;
-        public UserService(IUserRepository userRepository,IMapper mapper, JwtTokenService jwtTokenService, RecamDbContext dbContext, MongoDbContext mongoDbContext, IEmailSenderService emailSenderService)
+        public UserService(IUserRepository userRepository,IMapper mapper, JwtTokenService jwtTokenService, RealEstateDbContext dbContext, MongoDbContext mongoDbContext, IEmailSenderService emailSenderService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
@@ -238,7 +238,7 @@ namespace RealEstateMediaPlatform.API.Services.UserServices
         //Save event log to database
         private async Task SaveLogEventAsync(string eventType,string message,bool isSuccess, string? userId)
         {
-            var eventLog = new RecamEventLog
+            var eventLog = new RealEstateEventLog
             {
                 EventType = eventType,
                 EventMessage = message,

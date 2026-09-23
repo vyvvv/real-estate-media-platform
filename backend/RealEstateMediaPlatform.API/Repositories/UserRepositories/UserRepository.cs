@@ -8,11 +8,11 @@ namespace RealEstateMediaPlatform.API.Repositories.UserRepositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly RecamDbContext _dbContext;
+        private readonly RealEstateDbContext _dbContext;
         private readonly UserManager<User> _userManager;
 
 
-        public UserRepository(RecamDbContext dbContext, UserManager<User> userManager)
+        public UserRepository(RealEstateDbContext dbContext, UserManager<User> userManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;

@@ -9,7 +9,7 @@ import {
   deleteAgent,
   getAgents,
   updateAgent,
-} from "../api/agentApi";
+} from "../apis/agentApi";
 import type {
   Agent,
   CreateAgentRequest,

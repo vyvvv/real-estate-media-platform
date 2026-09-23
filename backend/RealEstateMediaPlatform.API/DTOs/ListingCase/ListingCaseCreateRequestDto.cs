@@ -39,7 +39,7 @@ namespace RealEstateMediaPlatform.API.DTOs.ListingCase
         [Required]
         public SaleCategory SaleCategory { get; set; }
 
-        public ListcaseStatus ListcaseStatus { get; set; }
+        public ListCaseStatus ListCaseStatus { get; set; }
 
 
 

@@ -5,7 +5,7 @@ import PropertyForm from "../components/PropertyForm";
 import Modal from "../components/Modal";
 import PropertyTable from "../components/PropertyTable";
 //import { mockProperties } from "../data/mockProperty";
-import { createListing, deleteListing, getListings } from "../api/listingApi";
+import { createListing, deleteListing, getListings } from "../apis/listingApi";
 
 import type { Property } from "../types/Property";
 import type { CreateListingRequest } from "../types/ListingCase";

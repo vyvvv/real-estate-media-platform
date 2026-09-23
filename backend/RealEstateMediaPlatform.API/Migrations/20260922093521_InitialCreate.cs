@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace RealEstateMediaPlatform.API.Migrations
 {
     /// <inheritdoc />
@@ -78,10 +80,10 @@ namespace RealEstateMediaPlatform.API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    AgentFirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AgentLastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    AgentFirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AgentLastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -91,7 +93,7 @@ namespace RealEstateMediaPlatform.API.Migrations
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -185,11 +187,11 @@ namespace RealEstateMediaPlatform.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Postcode = table.Column<int>(type: "int", nullable: false),
                     Longitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Latitude = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -199,7 +201,12 @@ namespace RealEstateMediaPlatform.API.Migrations
                     Garages = table.Column<int>(type: "int", nullable: false),
                     FloorArea = table.Column<double>(type: "float", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    ShareLinkUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShareLinkToken = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ShareLinkGeneratedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     PropertyType = table.Column<int>(type: "int", nullable: false),
                     SaleCategory = table.Column<int>(type: "int", nullable: false),
                     ListCaseStatus = table.Column<int>(type: "int", nullable: false),
@@ -231,27 +238,27 @@ namespace RealEstateMediaPlatform.API.Migrations
                         column: x => x.Id,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AgentListingCases",
+                name: "AgentListingCase",
                 columns: table => new
                 {
-                    ListingCaseId = table.Column<int>(type: "int", nullable: false),
-                    AgentId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    AgentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ListingCaseId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AgentListingCases", x => new { x.AgentId, x.ListingCaseId });
+                    table.PrimaryKey("PK_AgentListingCase", x => new { x.AgentId, x.ListingCaseId });
                     table.ForeignKey(
-                        name: "FK_AgentListingCases_Agents_AgentId",
+                        name: "FK_AgentListingCase_Agents_AgentId",
                         column: x => x.AgentId,
                         principalTable: "Agents",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AgentListingCases_ListingCases_ListingCaseId",
+                        name: "FK_AgentListingCase_ListingCases_ListingCaseId",
                         column: x => x.ListingCaseId,
                         principalTable: "ListingCases",
                         principalColumn: "Id",
@@ -266,11 +273,13 @@ namespace RealEstateMediaPlatform.API.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfileUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CompanyName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProfileUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ListingCaseId = table.Column<int>(type: "int", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ListingCaseId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -279,8 +288,7 @@ namespace RealEstateMediaPlatform.API.Migrations
                         name: "FK_CaseContacts_ListingCases_ListingCaseId",
                         column: x => x.ListingCaseId,
                         principalTable: "ListingCases",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -292,11 +300,11 @@ namespace RealEstateMediaPlatform.API.Migrations
                     MediaType = table.Column<int>(type: "int", nullable: false),
                     MediaUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UploadedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsSelected = table.Column<bool>(type: "bit", nullable: false),
+                    IsSelect = table.Column<bool>(type: "bit", nullable: false),
                     IsHero = table.Column<bool>(type: "bit", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     ListingCaseId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -316,7 +324,7 @@ namespace RealEstateMediaPlatform.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AgentPhotographyCompanies",
+                name: "AgentPhotographyCompany",
                 columns: table => new
                 {
                     AgentId = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -324,29 +332,39 @@ namespace RealEstateMediaPlatform.API.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AgentPhotographyCompanies", x => new { x.AgentId, x.PhotographyCompanyId });
+                    table.PrimaryKey("PK_AgentPhotographyCompany", x => new { x.AgentId, x.PhotographyCompanyId });
                     table.ForeignKey(
-                        name: "FK_AgentPhotographyCompanies_Agents_AgentId",
+                        name: "FK_AgentPhotographyCompany_Agents_AgentId",
                         column: x => x.AgentId,
                         principalTable: "Agents",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AgentPhotographyCompanies_PhotographyCompanies_PhotographyCompanyId",
+                        name: "FK_AgentPhotographyCompany_PhotographyCompanies_PhotographyCompanyId",
                         column: x => x.PhotographyCompanyId,
                         principalTable: "PhotographyCompanies",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "1", "f099bcf6-d30a-46e5-bc41-510f25563f48", "Admin", "ADMIN" },
+                    { "2", "cbb72c1e-c5f8-4a6a-89ef-ae04ec28bf02", "Agent", "AGENT" },
+                    { "3", "f39e3fb9-eed2-419e-8449-4252e047bfbc", "PhotographyCompany", "PHOTOGRAPHYCOMPANY" }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AgentListingCases_ListingCaseId",
-                table: "AgentListingCases",
+                name: "IX_AgentListingCase_ListingCaseId",
+                table: "AgentListingCase",
                 column: "ListingCaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AgentPhotographyCompanies_PhotographyCompanyId",
-                table: "AgentPhotographyCompanies",
+                name: "IX_AgentPhotographyCompany_PhotographyCompanyId",
+                table: "AgentPhotographyCompany",
                 column: "PhotographyCompanyId");
 
             migrationBuilder.CreateIndex(
@@ -413,10 +431,10 @@ namespace RealEstateMediaPlatform.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AgentListingCases");
+                name: "AgentListingCase");
 
             migrationBuilder.DropTable(
-                name: "AgentPhotographyCompanies");
+                name: "AgentPhotographyCompany");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");

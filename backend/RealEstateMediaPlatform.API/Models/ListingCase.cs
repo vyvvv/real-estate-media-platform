@@ -34,7 +34,7 @@ namespace RealEstateMediaPlatform.API.Models
 
         public PropertyType PropertyType { get; set; }
         public SaleCategory SaleCategory { get; set; }
-        public ListcaseStatus ListcaseStatus { get; set; }
+        public ListCaseStatus ListCaseStatus { get; set; }
 
         public string UserId { get; set; }
 

@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import PropertyBreadcrumb from "../components/PropertyBreadcrumb";
-import { getListingById } from "../api/listingApi";
+import { getListingById } from "../apis/listingApi";
 import type { Property } from "../types/Property";
 
 const EditPhotographyPage = () => {
