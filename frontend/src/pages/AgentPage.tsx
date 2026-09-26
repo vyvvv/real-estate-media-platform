@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import LoginNavBar from "../components/LoginNavBar";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/inputs/SearchBar";
 import Modal from "../components/Modal";
 import AgentForm from "../components/AgentForm";
 import AgentTable from "../components/AgentTable";

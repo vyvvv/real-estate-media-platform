@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import LoginNavBar from "../components/LoginNavBar";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/inputs/SearchBar";
 import PropertyForm from "../components/PropertyForm";
 import Modal from "../components/Modal";
 import PropertyTable from "../components/PropertyTable";
 //import { mockProperties } from "../data/mockProperty";
-import { createListing, deleteListing, getListings } from "../apis/listingApi";
+import { createListing, deleteListing, getListings } from "../apis/listingcases.api";
 
 import type { Property } from "../types/Property";
 import type { CreateListingRequest } from "../types/ListingCase";

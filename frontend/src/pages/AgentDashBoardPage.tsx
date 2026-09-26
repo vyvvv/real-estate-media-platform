@@ -1,4 +1,4 @@
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/inputs/SearchBar";
 import TabFilter from "../components/TabFilter";
 import PropertyCard from "../components/PropertyCard";
 

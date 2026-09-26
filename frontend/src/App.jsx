@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import AgentPage from "./pages/AgentPage";
 //import PropertyPage from "./pages/PropertyPage";
 import LoginPage from "./pages/LoginPage";
+import ListingCasePage from "./pages/ListingCasePage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import PhotographyCompaniesPage from "./pages/PhotographyCompaniesPage";
 import AgentDashBoardPage from "./pages/AgentDashBoardPage";
@@ -22,7 +23,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/dashboard" element={<AdminDashboardPage />} />
+        {/* //<Route path="/dashboard" element={<AdminDashboardPage />} /> */}
+        <Route path="/dashboard" element={<ListingCasePage />} />
         <Route path="/agent" element={<AgentPage />} />
         <Route path="/photography-companies" element={<PhotographyCompaniesPage />} />
 

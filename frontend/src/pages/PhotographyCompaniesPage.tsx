@@ -1,5 +1,5 @@
 import LoginNavBar from "../components/LoginNavBar";
-import SearchBar from "../components/SearchBar";
+import SearchBar from "../components/inputs/SearchBar";
 
 function PhotographyCompaniesPage() {
   return (

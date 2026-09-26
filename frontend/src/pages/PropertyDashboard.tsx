@@ -8,7 +8,7 @@ import PropertyForm from "../components/PropertyForm";
 import { useEffect, useState } from "react";
 import type { Property } from "../types/Property";
 import type { UpdateListingRequest  } from "../types/ListingCase";
-import { getListingById, updateListing } from "../apis/listingApi";
+import { getListingById, updateListing } from "../apis/listingcases.api";
 import PropertyBreadcrumb from "../components/PropertyBreadcrumb";
 
 const PropertyDashboard = () => {
