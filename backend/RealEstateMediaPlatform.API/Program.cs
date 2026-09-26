@@ -1,4 +1,3 @@
-using Azure.Storage.Blobs;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -144,14 +143,8 @@ builder.Services.AddScoped<IEmailSenderService, EmailSenderService>();
 
 builder.Services.AddScoped<IValidator<ListingCaseCreateRequestDto>, ListingCaseCreateValidator>();
 
-builder.Services.AddSingleton(cf =>
-{
-    var config = cf.GetRequiredService<IConfiguration>();
-    var connectionString = config["AzureBlobStorage:ConnectionString"];
-    return new BlobServiceClient(connectionString);
-});
-
-builder.Services.AddSingleton<IAzureBlobStorageService, AzureBlobStorageService>();
+// Temporarily disable media storage while developing ordinary listing operations.
+builder.Services.AddSingleton<IAzureBlobStorageService, DisabledBlobStorageService>();
 
 builder.Services.AddScoped<JwtTokenService>();
 
