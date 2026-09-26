@@ -4,7 +4,7 @@ import CreatePropertyModal from "../components/modals/CreatePropertyModal";
 
 import SearchBar from "../components/inputs/SearchBar";
 import ListingCaseTable from "../components/tables/ListingCaseTable";
-import { useListings } from "../hooks/useListing";
+import { useListings } from "../hooks/useListings";
 import useDebouncedValue from "../hooks/useDebouncedValue";
 import LoadingOrError from "../components/common/LoadingOrError";
 

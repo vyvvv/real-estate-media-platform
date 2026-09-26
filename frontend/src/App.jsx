@@ -1,16 +1,16 @@
-//import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import AgentPage from "./pages/AgentPage";
-//import PropertyPage from "./pages/PropertyPage";
-import LoginPage from "./pages/LoginPage";
-import ListingCasePage from "./pages/ListingCasePage";
-import AdminDashboardPage from "./pages/AdminDashboardPage";
-import PhotographyCompaniesPage from "./pages/PhotographyCompaniesPage";
-import AgentDashBoardPage from "./pages/AgentDashBoardPage";
-import SignUpPage from "./pages/SignUpPage";
-import PropertyDetailPage from "./pages/PropertyDetailPage";
-import PropertyDashboard from "./pages/PropertyDashboard"
-import EditPhotographyPage from "./pages/EditPhotographyPage";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from './pages/LoginPage';
+import Dashboard from './pages/Dashboard';
+import ListingCasesPage from "./pages/ListingCasePage";
+import EditListingCasePage from "./pages/EditListingCasePage";
+import AgentsPage from "./pages/AgentsPage";
+import PhotographyCompanyPage from "./pages/photographyCompanyPage";
+import PhotoUploadPage from "./pages/PhotoUploadPage";
+import { Toaster } from 'react-hot-toast';
+import MainLayout from "./layouts/MainLayout";
+import FloorPlanUploadPage from "./pages/FloorPlanUploadPage";
+import VideoUploadPage from "./pages/VideoUploadPage";
+import VrUploadPage from "./pages/VrUploadPage";
 
 
 function App() {
@@ -19,24 +19,21 @@ function App() {
 
   return (
     <main>
-        <BrowserRouter>
+       
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        {/* //<Route path="/dashboard" element={<AdminDashboardPage />} /> */}
-        <Route path="/dashboard" element={<ListingCasePage />} />
-        <Route path="/agent" element={<AgentPage />} />
-        <Route path="/photography-companies" element={<PhotographyCompaniesPage />} />
-
-        <Route path="/agentdashboard" element={<AgentDashBoardPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
-        <Route path="/propertydetail" element={<PropertyDetailPage />} />
-        
-        <Route path="/property/:id" element={<PropertyDashboard />} />
-        <Route path="/property/:id/photography" element={<EditPhotographyPage />} />
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/listing-cases" element={<ListingCasesPage />} />
+          <Route path="/all-agents" element={<AgentsPage />} />
+          <Route path="/all-companies" element={<PhotographyCompanyPage />} />
+          <Route path="/edit-listing/:id" element={<EditListingCasePage />} />
+          <Route path="/photo-upload/:id" element={<PhotoUploadPage />} />
+          <Route path="floorPlan-upload/:id" element={<FloorPlanUploadPage/>}/>
+          <Route path="video-upload/:id" element={<VideoUploadPage/>}/>
+          <Route path="vr-upload/:id" element={<VrUploadPage/>}/>
 
       </Routes>
-    </BrowserRouter>
+   
       
 
      
